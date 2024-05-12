@@ -7,3 +7,6 @@ The scripts.js file will build and load the chat-widget web component.
 This component will listen to following events and are customizable
 
 1. chat-message-receive
+2. chat-widget-activate
+3. chat-widget-expand
+4. chat-widget-collapse
