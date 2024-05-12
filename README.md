@@ -10,3 +10,7 @@ This component will listen to following events and are customizable
 2. chat-widget-activate
 3. chat-widget-expand
 4. chat-widget-collapse
+
+Also, the component will emit following events
+
+1. chat-message-send
