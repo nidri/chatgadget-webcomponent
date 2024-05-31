@@ -121,7 +121,6 @@
       margin-block-end: 0;
       position: absolute;
       bottom: 0;
-      width: 100%;
     }
 
     #msg-list li {
@@ -129,36 +128,16 @@
     }
 
     #msg-list li.msg-item {
+      background-color: var(--text-color);
       color: var(--bg-color);
       min-height: 2em;
       min-width: 0;
-      display: flex;
+      width: fit-content;
       line-height: 2em;
-      padding-top: 1px;
+      margin: 0.5em;
+      padding: 0 0.5em;
+      border-radius: 9px;
       overflow: hidden;
-    }
-
-    #msg-list li.msg-item.msg-in {
-      justify-content: flex-end;
-      padding-left: 6%
-    }
-
-    #msg-list li.msg-item.msg-out {
-      justify-content: flex-start;
-      padding-right: 6%
-    }
-
-    #msg-list li.msg-item div {
-      background-color: var(--text-color);
-      padding: 0.1em 0.5em;
-    }
-
-    #msg-list li.msg-item.msg-out div {
-      border-top-right-radius: 9px;
-    }
-
-    #msg-list li.msg-item.msg-in div {
-      border-top-left-radius: 9px;
     }
 
     .chips-box {
@@ -184,13 +163,13 @@
       min-height: 5em;
       max-height: 8em;
       border-top: 1px solid;
-      position: absolute;
-      bottom: 0;
       width: 100%;
       max-width: 100%;
       overflow-y: auto;
       display: block;
-      align-items: center;
+      position: absolute;
+      bottom: 0;
+      right: 0;
     }
 
     .chat-box-contents .chat-box-footer .msg-input-box .msg-input {
@@ -201,8 +180,7 @@
       background: var(--text-color);
       resize: none;
       height: 9ch;
-      border: 1px solid;
-      border-radius: 5px;
+      border: 1px solid var(--text-color);
       color: var(--bg-color);
       scrollbar-width: thin;
       padding: 0.5em;
@@ -345,17 +323,10 @@
       }
     }
 
-    _addToMessagesList(value, type = 'send') {
+    _addToMessagesList(value) {
       const msgList = this.shadowRoot.getElementById('msg-list');
       const li = document.createElement('li');
       const div = document.createElement('div');
-      if (type === 'receive') {
-        // For incoming message set message style
-        li.classList.toggle('msg-in');
-      }
-      else if (type === 'send') {
-        li.classList.toggle('msg-out');
-      }
       const span = document.createElement('span');
       const newMessage = document.createTextNode(value);
       span.appendChild(newMessage);
@@ -369,7 +340,8 @@
 
     _handleReceivedMessage(event) {
       const value = event.detail.message;
-      this._addToMessagesList(value, 'receive');
+      console.log(value);
+      this._addToMessagesList(value);
     }
 
     _activateChatWidget(event) {
@@ -378,6 +350,7 @@
 
     _expandChatWidget(event) {
       // Expand after activation
+      this._toggleChatWidget(event);
     }
 
     _collapseChatWidget(event) {
