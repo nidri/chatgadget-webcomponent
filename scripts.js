@@ -172,10 +172,12 @@
         _expandChatWidget(event) {
             // Expand after activation
             this._toggleChatWidget(event);
+            this._insertPromptChips();
         }
 
         _collapseChatWidget(event) {
             // Collapse event
+            this._toggleChatWidget(event);
         }
 
         _setElementHeights() {
@@ -202,7 +204,7 @@
             if (chips.length <= 0) return;
             const chipsBox = document.createElement('div');
             const greeting = document.createElement('h3');
-            greeting.textContent = 'Hello there! Use quick prompts';
+            greeting.textContent = this.greeting;
             greeting.style.textAlign = 'center';
             chipsBox.appendChild(greeting);
             chipsBox.classList.add('chips-box');
@@ -236,6 +238,10 @@
 
         get title() {
             return this.getAttribute('title') || 'Chat Widget';
+        }
+
+        get greeting() {
+            return this.dataset.greeting;
         }
 
         get chips() {
